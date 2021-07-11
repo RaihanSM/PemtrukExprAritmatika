@@ -1,0 +1,107 @@
+//Sample ekspresi 0 : 12*5+7-(23+2)/5-4			=> 12 5 * 7 + 23 2 + 5 / - 4 -
+//Sample ekspresi 1 : 2+-(4 + 6)					=> 2 -1 4 6 + * +
+//Sample ekspresi 2 : 7+18-5*7					=> 7 18 + 5 7 * -
+//Sample ekspresi 3 : (19 - 10)/3*8-5+27			=> 9 10 - 3 / 8 * 5 - 27 + 
+//Sample ekspresi 4 : 11 + (-19+9)/5-10/(5-3)	=> 11 -1 19 * 9 + 5 / + 10 5 3 - / -
+//Sample ekspresi 5 : 7+8*4						=> 7 8 4 * +
+//Sample ekspresi 6 : -49 - 17 % 5 * 2			=> -49 17 5 % 2 * -
+
+
+#include <iostream>
+#include <ctype.h>
+#include <stack>
+using namespace std;
+long unsigned int i;
+
+bool isVar(char b){
+	if(b=='+'||b=='-'||b=='*'||b=='/'||b=='%')
+		return true;
+	return false;
+}
+int raft(char b){
+	if(b=='+'||b=='-') return 1;
+	if(b=='*'||b=='/'||b=='%') return 2;
+	return 0;
+}
+string pos(string data){
+	stack<char> variabel;
+	string postfix="";
+	
+	for(i=0; i<data.length(); i++){
+		if(isdigit(data[i])){
+			while(i<data.length() && isdigit(data[i])){
+				postfix += data[i];
+				i++;
+			}
+			i--;
+			postfix += " ";
+		}
+		else if(data[i] == '(')
+			variabel.push(data[i]);
+		else if(data[i] == ')'){
+			while(!variabel.empty() && variabel.top() != '('){
+				postfix += variabel.top();
+				postfix += " ";
+				variabel.pop();
+			}
+			variabel.pop();
+		} else {
+			if(data[i] == '-'){
+				if(i==0){
+					if(isdigit(data[i+1])){
+						postfix += data[i];
+						i++;
+						while(i<data.length() && isdigit(data[i])){
+							postfix += data[i];
+							i++;
+						}
+						i--;
+						postfix += " ";
+					}
+					else{
+						postfix += "-1 ";
+						variabel.push('*');
+					}
+				} else {
+					while(!variabel.empty() && raft(variabel.top()) >= raft(data[i]) && !isVar(data[i-1])){
+						postfix += variabel.top();
+						postfix += " ";
+						variabel.pop();
+					}
+					if((isdigit(data[i+1]) || data[i+1]=='(') && (isdigit(data[i-1]) || data[i-1]==')'))
+						variabel.push(data[i]);
+					else {
+						postfix += "-1 ";
+						variabel.push('*');
+					}
+				}
+			} else {
+				while(!variabel.empty() && raft(variabel.top()) >= raft(data[i])){
+					postfix += variabel.top();
+					postfix += " ";
+					variabel.pop();
+				}
+				variabel.push(data[i]);
+			}
+		}
+	}
+	while(!variabel.empty()){
+		postfix += variabel.top();
+		postfix += " ";
+		variabel.pop();
+	}
+	return postfix;
+}
+
+int main(){
+	string ekspresi; getline(cin,ekspresi);
+	string temp="";
+	for(i=0;i<ekspresi.length();i++){
+		if(ekspresi[i]==' ')
+			continue;
+		else
+			temp+=ekspresi[i];
+	}
+	cout << "Print : " <<  pos(temp);
+	return 0;
+}

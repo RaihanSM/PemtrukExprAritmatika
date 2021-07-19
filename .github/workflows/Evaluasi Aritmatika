@@ -1,15 +1,15 @@
 //Nomor 3 Evaluasi Aritmatika
 
-//Sample ekspresi 0 : 7+8*4						=> 39
+//Sample ekspresi 0 : 7+8*4				=> 39
 //Sample ekspresi 1 : 12*5+7-(23+2)/5-4			=> 58
-//Sample ekspresi 2 : (9-3)*8/4-12				=> 0
+//Sample ekspresi 2 : (9-3)*8/4-12			=> 0
 //Sample ekspresi 3 : (19-10)/3*8-5+27			=> 46
 //Sample ekspresi 4 : (8*(10-3)-6)/10			=> 5
 //Sample ekspresi 5 : 9-10*7+15/3-10+8			=> -58
-//Sample ekspresi 6 : 7/5						=> 1.4
-//Sample ekspresi 7 : -(90/2) + -5 * 10 + 100/5	=> -75
-//Sample ekspresi 8 : -(90/2) + -5 * 10 + 100/5	=> -75
-//Sample ekspresi 9 : 1512%5						=> 2
+//Sample ekspresi 6 : 7/5				=> 1.4
+//Sample ekspresi 7 : -(90/2) + -5 * 10 + 100/5		=> -75
+//Sample ekspresi 8 : -(90/2) + -5 * 10 + 100/5		=> -75
+//Sample ekspresi 9 : 1512%5				=> 2
 //Sample ekspresi 10: -49 - 17 % 5 * 2			=> -53
 
 #include <iostream>
